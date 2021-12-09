@@ -1,6 +1,20 @@
 let BASE_SERVER_URL = "http://intensivgruppe-4.developerakademie.net/smallest_backend_ever";
 
 
+/* 
+DTO
+
+const user = {"id": 0,
+"name": "Dirk",
+"status": "ACTIVE",
+"created": "01:12:2021",
+"urgency": "High",
+"category": "Managment"
+
+}
+
+*/
+
  const queries = {
     findTask: function(searchTerm) {
         /* 

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="board.css">
+    <script src="board.js"></script>
+    <title>Document</title>
+</head>
+
+<body onload="updateHTML()">
+
+    <div class="main-container">
+
+
+        <div class="drag-area" id="open" ondrop="moveTo('open')" ondragover="allowDrop(event)"></div>
+        <div class="drag-area" id="onwork" ondrop="moveTo('onwork')" ondragover="allowDrop(event)"></div>
+        <div class="drag-area" id="closed" ondrop="moveTo('closed')" ondragover="allowDrop(event)"></div>
+</body>
+
+</html>

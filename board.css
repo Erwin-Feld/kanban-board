@@ -1,0 +1,24 @@
+.drag-area{
+
+  height: 200px;
+  background-color: lightgrey;
+  border: 1px solid black;
+  margin-bottom: 50px;
+  display: flex;
+  align-items: flex-start;
+}
+
+  
+
+.todo{
+
+  border: 1px solid grey;
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+
+
+
+}
+  

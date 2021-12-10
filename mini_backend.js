@@ -48,12 +48,17 @@ const queries = {
   },
 
   /**
-   *
-   * @returns all Tasks from DB
+   * @param {string} taskStatus  --> insert id of Div     
+   * 
+   * @returns specific task  
    */
-  getAllTasks: async function () {
-    const { tasks } = await downloadFromServer();
-    return tasks;
+  // Add which task
+  // ---    const foundTask = allTasks.tasks.find((elm) => elm.id === cardIdNumber);
+  //  return all tasks with div id  
+  getTask: async function (taskStatus) {
+    const allTasks = await downloadFromServer();
+    const filterdTasks = allTasks.tasks.filter(elm => elm.status === taskStatus)
+    return filterdTasks;
   },
 
   /**

@@ -16,6 +16,8 @@ const user = {"id": 0,
 */
 
 const queries = {
+  // cardID id 
+  // updatevalue --- div ID 
   updateTask: async function (cardId, updateValue) {
     const cardIdNumber = parseInt(cardId);
     const allTasks = await downloadFromServer();

@@ -33,6 +33,7 @@ async function createCard(divId) {
 
 
 async function change(dvId){
+
   // event drop event vollzogen wurde 
     const update = await queries.updateTask()
 
@@ -53,6 +54,14 @@ function drag(ev) {
 }
 
 function drop(ev) {
+  // console.log(ev)
+  // drop. target 
+  // target.id  
+  // async function callen 
+  //  queries.updwe(id card , id div)
+
+  // render() wegezogen einem 
+  // render() update dazupacken
 
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");

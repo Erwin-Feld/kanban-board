@@ -1,54 +1,58 @@
-import { queries, saveJSONToServer } from "./mini_backend.js";
-
+import { queries } from "./mini_backend.js";
 
 /* get all tasks */
-async function testme(){
-    for(let task of await queries.getAllTasks()){
-        console.log(task)
-    }
+async function testme() {
+  for (let task of await queries.getAllTasks()) {
+    console.log(task);
+  }
 }
 
-// testme()
+testme();
 
-const user = {"id": 0,
-"name": "Dirk",
-"status": "ACTIVE",
-"created": "01:12:2021",
-"urgency": "High",
-"category": "Managment"
+const user = {
+  id: 1,
+  name: "Erwin",
+  status: "ACTIVE",
+  created: "01:12:2021",
+  urgency: "High",
+  category: "Managment",
+};
 
+
+/* delete task */
+async function testDeleteTask(id){
+    queries.deleteTask(id)
 }
+
+// testDeleteTask(0)
+
 
 /* update task */
-async function updateTask(user){
-    const allTasks = await queries.getAllTasks();
-    allTasks.tasks.push(user);
+async function updateTask(user) {
+  const allTasks = await queries.getAllTasks();
+  allTasks.tasks.push(user);
 
-   
-    return saveJSONToServer(allTasks)
-
-    
+  return saveJSONToServer(allTasks);
 }
 
+async function getThatTask(id, value) {
+  const allTasks = await queries.updateTask(id, value);
 
+}
+
+// getThatTask(0, "working")
+
+// sdsddssssssssssssssssss
 
 // updateTask(user)
-
-testme()
-
-
-
 
 // async function getPromise(){
 //     const promise = await queries.getAllTasks()
 //     let x = promise.tasks.push(12)
-   
-    
+
 //     return  x;
-    
 
 // }
-
 
 // console.log(getPromise())
 
@@ -57,7 +61,6 @@ testme()
 // const x = queries.getAllTasks();
 
 // const z = x.push(12);
-
 
 /* json 
 
@@ -71,17 +74,14 @@ FINISHED
 
 /* newly created */
 const jsonExample = {
-
-    "tasks": [
-        {"id": 0,
-        "name": "Dirk",
-        "status": "ACTIVE",
-        "created": "01:12:2021",
-        "urgency": "High",
-        "category": "Managment"
-
-    }
-    ]
-
-}
-
+  tasks: [
+    {
+      id: 0,
+      name: "Dirk",
+      status: "ACTIVE",
+      created: "01:12:2021",
+      urgency: "High",
+      category: "Managment",
+    },
+  ],
+};

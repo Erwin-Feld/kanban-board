@@ -2,12 +2,12 @@ import { queries } from "./mini_backend.js";
 
 /* get all tasks */
 async function testme() {
-  for (let task of await queries.getAllTasks()) {
+  for (let task of await queries.getTask("ACTIVE")) {
     console.log(task);
   }
 }
 
-testme();
+// testme();
 
 const user = {
   id: 1,

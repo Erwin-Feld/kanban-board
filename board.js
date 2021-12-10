@@ -1,69 +1,21 @@
-let todos = [];
 
-let currentDraggedElement;
-
-function updateHTML() {
+function createCard() {
 
 
-  // Kategorie open
-  let open = todos.filter(t => t['category'] == 'open');
+  import { queries } from "./mini_backend.js";
 
+  for (let i = 0; i < queries.length; i++) {
+    const name = queries[i];
+    const status = queries[i];
+    content.innerHTML +=
 
-  document.getElementById('open').innerHTML = '';
-
-
-  for (let i = 0; i < open.length; i++) {
-    const element = open[i];
-    document.getElementById('open').innerHTML = generateTodoHTML(element);
-
+      `<div class="card">
+    ${name} <br>
+    ${status}<br>
+    
+   
+    </div>`;
   }
-
-
-  // Kategorie close
-  let open = todos.filter(t => t['category'] == 'closed');
-
-
-  document.getElementById('closed').innerHTML = '';
-
-
-  for (let i = 0; i < closed.length; i++) {
-    const element = closed[i];
-    document.getElementById('closed').innerHTML = generateTodoHTML(element);
-
-  }
-  // Kategorie close
-  let open = todos.filter(t => t['category'] == 'onwork');
-
-
-  document.getElementById('onwork').innerHTML = '';
-
-
-  for (let i = 0; i < closed.length; i++) {
-    const element = closed[i];
-    document.getElementById('onwork').innerHTML = generateTodoHTML(element);
-
-  }
-}
-
-
-//Elemente in HTML
-
-
-
-function generateTodoHTML() {
-  return `<div draggable="true" ondragstart="startDragging(${element['id']})" class="todo"> ${element['title']}</div>`
-}
-function startDragging(id) {
-
-  currentDraggedElement = id;
-}
-
-// zur Kategorie bewegen 
-function moveTo(category) {
-
-  todos[currentDraggedElement]['category'] = category;
-  updateHTML();
-
 }
 
 //Drag & Drop funktionen
@@ -77,7 +29,46 @@ function drag(ev) {
 }
 
 function drop(ev) {
+
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
   ev.target.appendChild(document.getElementById(data));
+}
+
+
+function updateHTML() {
+
+  document.getElementById('open').innerHTML = '';
+  for (let i = 0; i < open.length; i++) {
+    const element = open[i];
+    document.getElementById('open').innerHTML = generateTodoHTML(element);
+
+  }
+
+
+  // Kategorie close
+
+
+
+  document.getElementById('closed').innerHTML = '';
+
+
+  for (let i = 0; i < closed.length; i++) {
+    const element = closed[i];
+    document.getElementById('closed').innerHTML = generateTodoHTML(element);
+
+  }
+  // Kategorie close
+
+
+
+  document.getElementById('onwork').innerHTML = '';
+
+
+  for (let i = 0; i < closed.length; i++) {
+    const element = closed[i];
+    document.getElementById('onwork').innerHTML = generateTodoHTML(element);
+
+  }
+
 }

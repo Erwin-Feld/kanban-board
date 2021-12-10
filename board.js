@@ -1,22 +1,46 @@
+import { queries } from "./mini_backend.js";
 
-function createCard() {
+
+window.onload = function(){
+  updateHTML()
+}
 
 
-  import { queries } from "./mini_backend.js";
 
-  for (let i = 0; i < queries.length; i++) {
-    const name = queries[i];
-    const status = queries[i];
-    content.innerHTML +=
+async function createCard(divId) {
+  const parentContainer = document.getElementById(divId);
 
-      `<div class="card">
-    ${name} <br>
-    ${status}<br>
+      parentContainer.innerHTML = "";
+
+  const allTasks = await queries.getAllTasks();  
+  
+
+  for (let task of allTasks ) {
     
-   
+    // const name = queries[i];
+    // const status = queries[i];
+    // content.innerHTML +=
+
+    const card =  `<div class="card">
+    ${task.name} <br>
+    ${task.status}<br>
+
     </div>`;
+    // id index entspricht 
+    parentContainer.innerHTML += card;
   }
 }
+
+
+async function change(dvId){
+  // event drop event vollzogen wurde 
+    const update = await queries.updateTask()
+
+    // create card()
+
+}
+
+
 
 //Drag & Drop funktionen
 
@@ -38,37 +62,43 @@ function drop(ev) {
 
 function updateHTML() {
 
-  document.getElementById('open').innerHTML = '';
-  for (let i = 0; i < open.length; i++) {
-    const element = open[i];
-    document.getElementById('open').innerHTML = generateTodoHTML(element);
+  createCard("open")
 
-  }
+  // allowDrop()
+  // drag()
+  // drop()
+
+  // document.getElementById('open').innerHTML = '';
+  // for (let i = 0; i < open.length; i++) {
+  //   const element = open[i];
+  //   document.getElementById('open').innerHTML = generateTodoHTML(element);
+
+  // }
 
 
-  // Kategorie close
-
-
-
-  document.getElementById('closed').innerHTML = '';
-
-
-  for (let i = 0; i < closed.length; i++) {
-    const element = closed[i];
-    document.getElementById('closed').innerHTML = generateTodoHTML(element);
-
-  }
-  // Kategorie close
+  // // Kategorie close
 
 
 
-  document.getElementById('onwork').innerHTML = '';
+  // document.getElementById('closed').innerHTML = '';
 
 
-  for (let i = 0; i < closed.length; i++) {
-    const element = closed[i];
-    document.getElementById('onwork').innerHTML = generateTodoHTML(element);
+  // for (let i = 0; i < closed.length; i++) {
+  //   const element = closed[i];
+  //   document.getElementById('closed').innerHTML = generateTodoHTML(element);
 
-  }
+  // }
+  // // Kategorie close
+
+
+
+  // document.getElementById('onwork').innerHTML = '';
+
+
+  // for (let i = 0; i < closed.length; i++) {
+  //   const element = closed[i];
+  //   document.getElementById('onwork').innerHTML = generateTodoHTML(element);
+
+  // }
 
 }

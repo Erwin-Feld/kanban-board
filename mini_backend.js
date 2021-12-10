@@ -1,5 +1,5 @@
-let BASE_SERVER_URL = "http://intensivgruppe-4.developerakademie.net/smallest_backend_ever";
-
+let BASE_SERVER_URL =
+  "http://intensivgruppe-4.developerakademie.net/smallest_backend_ever";
 
 /* 
 DTO
@@ -15,61 +15,66 @@ const user = {"id": 0,
 
 */
 
- const queries = {
-    findTask: function(searchTerm) {
-        /* 
-        Add 
-        searches db for first apearence if that seatchterm
-        returns index of that task 
-        */
+const queries = {
+  updateTask: async function (cardId, updateValue) {
+    const cardIdNumber = parseInt(cardId);
+    const allTasks = await downloadFromServer();
+    const foundTask = allTasks.tasks.find((elm) => elm.id === cardIdNumber);
 
-    },
-    
-    /**
-     * add a Task Object to DB
-     * 
-     * @param {Object} task 
-     * @returns 
-     */
-    addTask: async function(task){
-        const allTasks = await downloadFromServer();
-        allTasks.tasks.push(task);
-        return saveJSONToServer(allTasks)
+    const updatedTask = Object.assign(foundTask, { status: updateValue });
 
-    },
+    // replace element
+    allTasks.tasks.forEach((elm, ind) => {
+      if (elm.id === cardIdNumber) {
+        elm.status = updateValue;
+      }
+    });
 
-    /**
-     * 
-     * @returns all Tasks from DB
-     */
-    getAllTasks: async function(){
-        const {tasks} = await downloadFromServer(); 
-        return tasks
+    return await saveJSONToServer(allTasks);
+  },
 
-    },
+  /**
+   * add a Task Object to DB
+   *
+   * @param {Object} task
+   * @returns
+   */
+  addTask: async function (task) {
+    const allTasks = await downloadFromServer();
+    allTasks.tasks.push(task);
+    return saveJSONToServer(allTasks);
+  },
 
-    deleteTask: function(key) {
-    /* 
-    Add 
-    delete task by index , gets index deletes that part
+  /**
+   *
+   * @returns all Tasks from DB
+   */
+  getAllTasks: async function () {
+    const { tasks } = await downloadFromServer();
+    return tasks;
+  },
 
-        */
+  /**
+   * 
+   * @param {String} cardId id of card element 
+   * @returns deletes task from database
+   */
+  deleteTask: async function (cardId) {
+    const cardIdNumber = parseInt(cardId);
+    const allTasks = await downloadFromServer();
 
-        delete jsonFromServer[key];
-        return saveJSONToServer();
-    }
+    const taskId = allTasks.tasks.findIndex((item) => item.id === cardIdNumber);
+
+    allTasks.tasks.splice(taskId, 1);
+    return await saveJSONToServer(allTasks);
+  },
 };
 
-
-
-
 async function downloadFromServer() {
-    let result = await loadJSONFromServer();
-    const jsonFromServer = JSON.parse(result);
-    return await jsonFromServer;
-  
+  let result = await loadJSONFromServer();
+  const jsonFromServer = JSON.parse(result);
+  return await jsonFromServer;
 }
-
 
 /**
  * Loads a JSON or JSON Array to the Server
@@ -77,51 +82,45 @@ async function downloadFromServer() {
  */
 
 async function loadJSONFromServer() {
-    let response = await fetch(BASE_SERVER_URL + '/nocors.php?json=database&noache=' + (new Date().getTime()));
-    return await response.text();
-
+  let response = await fetch(
+    BASE_SERVER_URL + "/nocors.php?json=database&noache=" + new Date().getTime()
+  );
+  return await response.text();
 }
-
-
 
 /**
  * Saves a JSON or JSON Array to the Server
  */
- function saveJSONToServer(addedTasks) {
-    return new Promise(function(resolve, reject) {
-        let xhttp = new XMLHttpRequest();
-        let proxy = determineProxySettings();
-        let serverURL = proxy + BASE_SERVER_URL + '/save_json.php';
-        xhttp.open('POST', serverURL);
+function saveJSONToServer(changes) {
+  return new Promise(function (resolve, reject) {
+    let xhttp = new XMLHttpRequest();
+    let proxy = determineProxySettings();
+    let serverURL = proxy + BASE_SERVER_URL + "/save_json.php";
+    xhttp.open("POST", serverURL);
 
-        xhttp.onreadystatechange = function(oEvent) {
-            if (xhttp.readyState === 4) {
-                if (xhttp.status >= 200 && xhttp.status <= 399) {
-                    resolve(xhttp.responseText);
-                } else {
-                    reject(xhttp.statusText);
-                }
-            }
-        };
+    xhttp.onreadystatechange = function (oEvent) {
+      if (xhttp.readyState === 4) {
+        if (xhttp.status >= 200 && xhttp.status <= 399) {
+          resolve(xhttp.responseText);
+        } else {
+          reject(xhttp.statusText);
+        }
+      }
+    };
 
-        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        xhttp.send(JSON.stringify(addedTasks));
-
-    });
+    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhttp.send(JSON.stringify(changes));
+  });
 }
-
 
 function determineProxySettings() {
-    return '';
+  return "";
 
-    if (window.location.href.indexOf('.developerakademie.com') > -1) {
-        return '';
-    } else {
-        return 'https://cors-anywhere.herokuapp.com/';
-    }
+  if (window.location.href.indexOf(".developerakademie.com") > -1) {
+    return "";
+  } else {
+    return "https://cors-anywhere.herokuapp.com/";
+  }
 }
 
-
-
-
-export {queries, downloadFromServer, saveJSONToServer}
+export { queries };

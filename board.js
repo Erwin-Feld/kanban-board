@@ -12,10 +12,10 @@ async function createCard(divId) {
 
       parentContainer.innerHTML = "";
 
-  const allTasks = await queries.getAllTasks();  
+  const filteredTask = await queries.getTask("ACTIVE");  
   
 
-  for (let task of allTasks ) {
+  for (let task of filteredTask ) {
     
     // const name = queries[i];
     // const status = queries[i];

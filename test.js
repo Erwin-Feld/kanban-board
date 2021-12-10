@@ -2,7 +2,7 @@ import { queries } from "./mini_backend.js";
 
 /* get all tasks */
 async function testme() {
-  for (let task of await queries.getTask("ACTIVE")) {
+  for (let task of await queries.getTask("active")) {
     console.log(task);
   }
 }

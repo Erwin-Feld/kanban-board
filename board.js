@@ -12,7 +12,7 @@ async function createCard(divId) {
 
       parentContainer.innerHTML = "";
 
-  const filteredTask = await queries.getTask("ACTIVE");  
+  const filteredTask = await queries.getTask("active");  
   
 
   for (let task of filteredTask ) {

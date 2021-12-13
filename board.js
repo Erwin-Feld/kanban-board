@@ -7,15 +7,16 @@ function init(){
     allowDrop()
   })
 
+  createCard()
 }
 
 
 
 
 // Karte erzeugen
-window.onload =createCard();
+window.onload =init();
 async function createCard() {
-  const parentContainer = document.getElementById('open');
+  const parentContainer = document.getElementById('active');
 
   parentContainer.innerHTML = "";
 
@@ -24,14 +25,16 @@ async function createCard() {
 
   for (let task of filteredTask) {
 
-    
+      // id bekommen
+      task.id
 
-    let card= `<div draggable="true" ondragstart="startDragging(${task[i]);" class="card">
+    let card= `<div draggable="true" "class="card">
     ${task.taskName} <br>
     ${task.status}<br>
 
     </div>`;
-    // id index entspricht 
+
+
     parentContainer.innerHTML += card;
   }
 }

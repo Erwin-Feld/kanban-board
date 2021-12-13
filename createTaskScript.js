@@ -6,10 +6,11 @@ function init(){
     const btn = document.getElementById("submitbtn")
     btn.addEventListener("click", ()=> addTasktoDb())
 
+    // FIXME wieso geht das nur mit prevent default
     /* prevent default */
-//     var form = document.getElementById("dbSubmit");
-// function handleForm(event) { event.preventDefault(); } 
-// form.addEventListener('submit', handleForm);
+    var form = document.getElementById("dbSubmit");
+function handleForm(event) { event.preventDefault(); } 
+form.addEventListener('submit', handleForm);
 }
 
 window.onload = function(){
@@ -20,6 +21,11 @@ window.onload = function(){
 
 
 async function addTasktoDb(){
+
+    const allTasksCount = await queries.getAllTasks()
+
+    const taskId = (allTasksCount.length +1)
+
     const taskName = document.getElementById("taskName").value
 
     const taskCreatorName = document.getElementById("taskCreatorName").value
@@ -49,8 +55,11 @@ async function addTasktoDb(){
     // task description
     // const taskUrgency = document.getElementById("taskCategory").value
 
+    //  ------> 
+    // FIXME only adds to db after second click 
 
     const dto = {
+        id: taskId,
         taskName: taskName,
         employee: taskCreatorName,
         created: new Date().toLocaleString(),
@@ -62,7 +71,7 @@ async function addTasktoDb(){
 
    try {
        
-       return queries.createTask(dto);
+       return await queries.createTask(dto);
 
    } catch(error) {
        console.log(error)
@@ -72,9 +81,8 @@ async function addTasktoDb(){
 }
 
 async function testme() {
-    for (let task of await queries.getTask("active")) {
-      console.log(task);
-    }
+    const allTasks = await queries.getAllTasks()
+    console.log(allTasks)
   }
   
   testme();

@@ -16,7 +16,7 @@ function init(){
 // Karte erzeugen
 window.onload =init();
 async function createCard() {
-  const parentContainer = document.getElementById('active');
+  const parentContainer = document.getElementById('open');
 
   parentContainer.innerHTML = "";
 
@@ -26,7 +26,7 @@ async function createCard() {
   for (let task of filteredTask) {
 
       // id bekommen
-      task.id
+   console.log(task.id)
 
     let card= `<div draggable="true" "class="card">
     ${task.taskName} <br>

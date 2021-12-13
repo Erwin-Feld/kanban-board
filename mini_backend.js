@@ -16,6 +16,15 @@ const user = {"id": 0,
 */
 
 const queries = {
+
+  createTask: async function(dto){
+    const allTasks = await downloadFromServer();;
+    allTasks.tasks.push(dto);
+    console.log(allTasks)
+    return saveJSONToServer(allTasks);
+
+  },
+
   // cardID id 
   // updatevalue --- div ID 
   updateTask: async function (cardId, updateValue) {
@@ -23,6 +32,7 @@ const queries = {
     const allTasks = await downloadFromServer();
     const foundTask = allTasks.tasks.find((elm) => elm.id === cardIdNumber);
 
+    // Add wieso grau 
     const updatedTask = Object.assign(foundTask, { status: updateValue });
 
     // replace element
@@ -60,7 +70,7 @@ const queries = {
     const filterdTasks = allTasks.tasks.filter(elm => elm.status === taskStatus)
     return filterdTasks;
   },
-
+  
   /**
    * 
    * @param {String} cardId id of card element 

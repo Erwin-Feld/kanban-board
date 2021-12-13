@@ -11,12 +11,12 @@
     <title>Document</title>
 </head>
 
-<body>
+<body >
 
     <div class="main-container">
 
 
-        <div class="drag-area" id="open"></div>
+        <div class="drag-area" id="open" ondrop="moveTo('open')" ondragover="allowDrop(event)"></div>
         <div class="drag-area" id="onwork" ondrop="moveTo('onwork')" ondragover="allowDrop(event)"></div>
         <div class="drag-area" id="closed" ondrop="moveTo('closed')" ondragover="allowDrop(event)"></div>
 </body>

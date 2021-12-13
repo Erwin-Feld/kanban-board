@@ -1,28 +1,33 @@
 import { queries } from "./mini_backend.js";
 
+function init(){
 
-window.onload = function(){
-  updateHTML()
+  let firstdiv = document.getElementById("open");
+  firstdiv.addEventListener("ondragover", ()=> {
+    allowDrop()
+  })
+
 }
 
 
 
-async function createCard(divId) {
-  const parentContainer = document.getElementById(divId);
 
-      parentContainer.innerHTML = "";
+// Karte erzeugen
+window.onload =createCard();
+async function createCard() {
+  const parentContainer = document.getElementById('open');
 
-  const filteredTask = await queries.getTask("active");  
-  
+  parentContainer.innerHTML = "";
 
-  for (let task of filteredTask ) {
+  const filteredTask = await queries.getTask("active");
+
+
+  for (let task of filteredTask) {
+
     
-    // const name = queries[i];
-    // const status = queries[i];
-    // content.innerHTML +=
 
-    const card =  `<div class="card">
-    ${task.name} <br>
+    let card= `<div draggable="true" ondragstart="startDragging(${task[i]);" class="card">
+    ${task.taskName} <br>
     ${task.status}<br>
 
     </div>`;
@@ -32,20 +37,25 @@ async function createCard(divId) {
 }
 
 
-async function change(dvId){
-
-  // event drop event vollzogen wurde 
-    const update = await queries.updateTask()
-
-    // create card()
-
-}
 
 
+let currentDragelement;
 
 //Drag & Drop funktionen
 
+function startDragging(id){
+
+  currentDragelement =id;
+}
+
+function moveTo(status){
+ task[currentDragelement]['status'] = status;
+ updateHTML();
+
+}
+
 function allowDrop(ev) {
+  console.log(ev)
   ev.preventDefault();
 }
 
@@ -54,60 +64,52 @@ function drag(ev) {
 }
 
 function drop(ev) {
-  // console.log(ev)
-  // drop. target 
-  // target.id  
-  // async function callen 
-  //  queries.updwe(id card , id div)
-
-  // render() wegezogen einem 
-  // render() update dazupacken
-
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
   ev.target.appendChild(document.getElementById(data));
 }
 
-
 function updateHTML() {
 
-  createCard("open")
+  let open = getTask.filter(t => t['status'] == 'open');
 
-  // allowDrop()
-  // drag()
-  // drop()
-
-  // document.getElementById('open').innerHTML = '';
-  // for (let i = 0; i < open.length; i++) {
-  //   const element = open[i];
-  //   document.getElementById('open').innerHTML = generateTodoHTML(element);
-
-  // }
+  document.getElementById('open').innerHTML = '';
+  for (let i = 0; i < open.length; i++) {
+    const element = open[i];
+    document.getElementById('open').innerHTML = generateTodoHTML(element);
+  }
 
 
   // // Kategorie close
 
+  let closed = getTask.filter(t => t['status'] == 'closed');
+
+  document.getElementById('closed').innerHTML = '';
 
 
-  // document.getElementById('closed').innerHTML = '';
+  for (let i = 0; i < closed.length; i++) {
+    const element = closed[i];
+    document.getElementById('closed').innerHTML = generateTodoHTML(element);
+
+  }
+  // Kategorie close
+
+  let onwork = getTask.filter(t => t['status'] == 'onwork');
+
+  document.getElementById('onwork').innerHTML = '';
 
 
-  // for (let i = 0; i < closed.length; i++) {
-  //   const element = closed[i];
-  //   document.getElementById('closed').innerHTML = generateTodoHTML(element);
+  // Kategorie onwork
 
-  // }
-  // // Kategorie close
+  for (let i = 0; i < onwork.length; i++) {
+    const element = onwork[i];
+    document.getElementById('onwork').innerHTML = generateTodoHTML(element);
 
-
-
-  // document.getElementById('onwork').innerHTML = '';
-
-
-  // for (let i = 0; i < closed.length; i++) {
-  //   const element = closed[i];
-  //   document.getElementById('onwork').innerHTML = generateTodoHTML(element);
-
-  // }
+  }
 
 }
+function  generateTodoHTML(element){
+  return `<div draggable="true" ondragstart="startDragging(${element['id']})" class="title">${element['title']}></div>`
+}
+
+

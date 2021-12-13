@@ -5,9 +5,9 @@ function init(){
     btn.addEventListener("click", ()=> addTasktoDb())
 
     /* prevent default */
-    var form = document.getElementById("dbSubmit");
-function handleForm(event) { event.preventDefault(); } 
-form.addEventListener('submit', handleForm);
+//     var form = document.getElementById("dbSubmit");
+// function handleForm(event) { event.preventDefault(); } 
+// form.addEventListener('submit', handleForm);
 }
 
 window.onload = function(){
@@ -18,6 +18,7 @@ window.onload = function(){
 
 
 async function addTasktoDb(){
+    const taskName = document.getElementById("taskName").value
 
     const taskCreatorName = document.getElementById("taskCreatorName").value
 
@@ -48,7 +49,8 @@ async function addTasktoDb(){
 
 
     const dto = {
-        name: taskCreatorName,
+        taskName: taskName,
+        employee: taskCreatorName,
         created: new Date().toLocaleString(),
         status: "active",
         taskCategory: taskCategoryValue,

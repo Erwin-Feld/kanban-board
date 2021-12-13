@@ -1,6 +1,8 @@
 import { queries } from "./mini_backend.js";
+import {includeHTML} from "./routing.js"
 
 function init(){
+    includeHTML()
     const btn = document.getElementById("submitbtn")
     btn.addEventListener("click", ()=> addTasktoDb())
 

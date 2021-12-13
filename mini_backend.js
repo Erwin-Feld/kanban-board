@@ -57,12 +57,17 @@ const queries = {
     return saveJSONToServer(allTasks);
   },
 
+  getAllTasks: async function(){
+    const allTasks = await downloadFromServer();
+    return allTasks.tasks
+  },
+
+
   /**
    * @param {string} taskStatus  --> insert id of Div     
    * 
    * @returns specific task  
    */
-  // Add which task
   // ---    const foundTask = allTasks.tasks.find((elm) => elm.id === cardIdNumber);
   //  return all tasks with div id  
   getTask: async function (taskStatus) {

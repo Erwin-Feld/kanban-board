@@ -1,43 +1,36 @@
-import { queries } from "./mini_backend.js";
-
-function init(){
-
-  let firstdiv = document.getElementById("open");
-  firstdiv.addEventListener("ondragover", ()=> {
-    allowDrop()
-  })
-
-  createCard()
-}
-
-
-
-
 // Karte erzeugen
-window.onload =init();
-async function createCard() {
-  const parentContainer = document.getElementById('open');
-
-  parentContainer.innerHTML = "";
-
-  const filteredTask = await queries.getTask("active");
 
 
-  for (let task of filteredTask) {
 
-      // id bekommen
-   console.log(task.id)
 
-    let card= `<div draggable="true" "class="card">
+//async function createCard() {
+//const parentContainer = document.getElementById('open');
+
+//parentContainer.innerHTML = "";
+
+
+function getCard() {
+
+
+
+    for (let i = 0; i < allTasks.length; i++) {
+        card = task[i];
+
+    } {
+
+
+
+        card = `<div draggable="true" ondragstart="startDragging(${task.id})" class="card text-white bg-success mb-3">
+  
     ${task.taskName} <br>
     ${task.status}<br>
 
     </div>`;
-
-
-    parentContainer.innerHTML += card;
-  }
+        // id index entspricht 
+        //parentContainer.innerHTML += card;
+    }
 }
+
 
 
 
@@ -46,73 +39,72 @@ let currentDragelement;
 
 //Drag & Drop funktionen
 
-function startDragging(id){
+function startDragging(id) {
 
-  currentDragelement =id;
+    currentDragelement = id;
 }
 
-function moveTo(status){
- task[currentDragelement]['status'] = status;
- updateHTML();
+function moveTo(category) {
+    task[currentDragelement]['category'] = category;
+    updateHTML();
 
 }
 
 function allowDrop(ev) {
-  console.log(ev)
-  ev.preventDefault();
+    console.log(ev)
+    ev.preventDefault();
 }
 
 function drag(ev) {
-  ev.dataTransfer.setData("text", ev.target.id);
+    ev.dataTransfer.setData("text", ev.target.id);
 }
 
 function drop(ev) {
-  ev.preventDefault();
-  var data = ev.dataTransfer.getData("text");
-  ev.target.appendChild(document.getElementById(data));
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
 }
 
 function updateHTML() {
 
-  let open = getTask.filter(t => t['status'] == 'open');
+    let open = getTask.filter(t => t['category'] == 'open');
 
-  document.getElementById('open').innerHTML = '';
-  for (let i = 0; i < open.length; i++) {
-    const element = open[i];
-    document.getElementById('open').innerHTML = generateTodoHTML(element);
-  }
-
-
-  // // Kategorie close
-
-  let closed = getTask.filter(t => t['status'] == 'closed');
-
-  document.getElementById('closed').innerHTML = '';
+    document.getElementById('open').innerHTML = '';
+    for (let i = 0; i < open.length; i++) {
+        const element = open[i];
+        document.getElementById('open').innerHTML = generateTodoHTML(element);
+    }
 
 
-  for (let i = 0; i < closed.length; i++) {
-    const element = closed[i];
-    document.getElementById('closed').innerHTML = generateTodoHTML(element);
+    // // Kategorie close
 
-  }
-  // Kategorie close
+    let closed = getTask.filter(t => t['category'] == 'closed');
 
-  let onwork = getTask.filter(t => t['status'] == 'onwork');
-
-  document.getElementById('onwork').innerHTML = '';
+    document.getElementById('closed').innerHTML = '';
 
 
-  // Kategorie onwork
+    for (let i = 0; i < closed.length; i++) {
+        const element = closed[i];
+        document.getElementById('category').innerHTML = generateTodoHTML(element);
 
-  for (let i = 0; i < onwork.length; i++) {
-    const element = onwork[i];
-    document.getElementById('onwork').innerHTML = generateTodoHTML(element);
+    }
+    // Kategorie close
 
-  }
+    let onwork = getTask.filter(t => t['category'] == 'onwork');
+
+    document.getElementById('onwork').innerHTML = '';
+
+
+    // Kategorie onwork
+
+    for (let i = 0; i < onwork.length; i++) {
+        const element = onwork[i];
+        document.getElementById('onwork').innerHTML = generateTodoHTML(element);
+
+    }
 
 }
-function  generateTodoHTML(element){
-  return `<div draggable="true" ondragstart="startDragging(${element['id']})" class="title">${element['title']}></div>`
+
+function generateTodoHTML(element) {
+    return `<div draggable="true" ondragstart="startDragging${task.id})" class="title">${element['title']}></div>`
 }
-
-

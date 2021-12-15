@@ -1,24 +1,47 @@
-.drag-area{
-
-  height: 200px;
-  background-color: lightgrey;
-  border: 1px solid black;
-  margin-bottom: 50px;
-  display: flex;
-  align-items: flex-start;
+body {
+    margin: 0;
 }
 
-  
-
-.todo{
-
-  border: 1px solid grey;
-  background-color: white;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px;
-
-
-
+.main-container {
+    display: flex;
+    justify-content: space-between;
+    background-image: url(./img/work.jpg);
+    background-size: cover;
+    height: 100vh;
 }
-  
+
+.open {
+    width: 200px;
+    background-color: #A52A2A;
+    border: 2px solid black;
+    border-radius: 16px;
+    margin-top: 400px;
+    margin-left: 309px;
+}
+
+.onwork {
+    width: 200px;
+    background-color: yellow;
+    border: 2px solid black;
+    border-radius: 16px;
+    margin-top: 400px;
+    margin-right: 100px;
+}
+
+.close {
+    width: 200px;
+    background-color: yellowgreen;
+    border: 2px solid black;
+    border-radius: 16px;
+    margin-top: 400px;
+    margin-right: 320px;
+    margin-left: -1px;
+}
+
+.card {
+    border: 1px solid grey;
+    background-color: blue !important;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+}

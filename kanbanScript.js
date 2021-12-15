@@ -2,6 +2,41 @@ import { queries } from "./mini_backend.js";
 
 function init() {
     render()
+
+    const fistDiv = document.getElementById("onwork");
+    fistDiv.addEventListener("dragover", e=> e.preventDefault())
+
+
+
+    fistDiv.addEventListener("drop", ev=> {
+      ev.preventDefault();
+      console.log(ev)
+      var data = ev.dataTransfer.getData("text");
+      ev.target.appendChild(document.getElementById(data));
+    });
+
+
+    const secDiv = document.getElementById("open");
+    secDiv.addEventListener("dragover", e=> e.preventDefault())
+    secDiv.addEventListener("drop", ev=> {
+      ev.preventDefault();
+      console.log(ev)
+      var data = ev.dataTransfer.getData("text");
+      ev.target.appendChild(document.getElementById(data));
+    });
+
+
+
+    const thirdDiv = document.getElementById("closed");
+    thirdDiv.addEventListener("dragover", e=> e.preventDefault())
+    thirdDiv.addEventListener("drop", ev=> {
+      ev.preventDefault();
+      console.log(ev)
+      var data = ev.dataTransfer.getData("text");
+      ev.target.appendChild(document.getElementById(data));
+    });
+
+
 }
 
 window.onload = function () {
@@ -16,18 +51,20 @@ async function testme() {
 
 
 
-
-
 async function render(){
     const allTasks = await queries.getAllTasks();
     
     const parentContainer = document.getElementById("open")
     parentContainer.innerHTML= "";
 
+    let draggedItem = null;
+
     for(let task of allTasks){
 
+      // Add id
+
         const taskCard = `
-        <div class="col-md-6 col-lg-3" draggable="true">
+        <div class="col-md-6 col-lg-3" draggable="true" id="${task.id}" ">
             <div class="card ">
               <div class="card-body">
                 <h5 class="card-title">${task.taskName}</h5>
@@ -47,10 +84,36 @@ async function render(){
               </div>
             </div>
           </div>
-       
         `
+
+
+        // taskCard.addEventlistener("dragstart", (e)=> {
+        //     draggedItem = this
+        //     console.log(draggedItem)
+        // })
+
+
         parentContainer.innerHTML += taskCard;
+
+        const card = document.getElementById(task.id);
+        card.addEventListener("dragstart", (ev)=> {
+          ev.dataTransfer.setData("text", ev.target.id);
+          // draggedItem = this
+          // console.log(e.target)
+        })
+
+
     }
 }
 
 
+function drop(e){
+  console.log(e.target)
+}
+
+
+/* 
+Add on drop -- > change database --> get changed item change status
+// add delte button --> deleates element ---> delete item from database 
+
+*/

@@ -2,7 +2,7 @@ body {
     margin: 0;
 }
 
-.main-container {
+.container {
     display: flex;
     justify-content: space-between;
     background-image: url(./img/work.jpg);
@@ -40,7 +40,7 @@ body {
 
 .card {
     border: 1px solid grey;
-    background-color: blue !important;
+    background-color: rgb(219, 219, 236) !important;
     border-radius: 5px;
     padding: 10px;
     margin: 10px;

@@ -59,6 +59,7 @@ const queries = {
 
   getAllTasks: async function(){
     const allTasks = await downloadFromServer();
+    console.log(allTasks.tasks)
     return allTasks.tasks
   },
 

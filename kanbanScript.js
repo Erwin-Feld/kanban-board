@@ -10,30 +10,49 @@ function init() {
 
     fistDiv.addEventListener("drop", ev=> {
       ev.preventDefault();
-      console.log(ev)
       var data = ev.dataTransfer.getData("text");
       ev.target.appendChild(document.getElementById(data));
+
+      // transfered card
+      console.log(data)
+
+      console.log(ev.target.id)
+
+      queries.updateTask(data, ev.target.id)
+
     });
 
 
-    const secDiv = document.getElementById("open");
+    const secDiv = document.getElementById("active");
     secDiv.addEventListener("dragover", e=> e.preventDefault())
     secDiv.addEventListener("drop", ev=> {
       ev.preventDefault();
-      console.log(ev)
       var data = ev.dataTransfer.getData("text");
       ev.target.appendChild(document.getElementById(data));
+      
+      console.log(data)
+
+      console.log(ev.target.id)
+      
+      queries.updateTask(data, ev.target.id)
+
     });
 
 
 
-    const thirdDiv = document.getElementById("closed");
+    const thirdDiv = document.getElementById("finished");
     thirdDiv.addEventListener("dragover", e=> e.preventDefault())
     thirdDiv.addEventListener("drop", ev=> {
       ev.preventDefault();
-      console.log(ev)
       var data = ev.dataTransfer.getData("text");
       ev.target.appendChild(document.getElementById(data));
+
+      console.log(data)
+
+      console.log(ev.target.id)
+
+      queries.updateTask(data, ev.target.id)
+
     });
 
 
@@ -54,7 +73,7 @@ async function testme() {
 async function render(){
     const allTasks = await queries.getAllTasks();
     
-    const parentContainer = document.getElementById("open")
+    const parentContainer = document.getElementById("active")
     parentContainer.innerHTML= "";
 
     let draggedItem = null;
@@ -81,6 +100,7 @@ async function render(){
 
                 <h6 class="card-title mb-0">Description</h6>
                 <p card-text mb-1"> ${task.taskDescription}</p>
+                <button type="button" class="btn" id="delete-task${task.id}">delete Task</button>
               </div>
             </div>
           </div>
@@ -100,16 +120,30 @@ async function render(){
           ev.dataTransfer.setData("text", ev.target.id);
           // draggedItem = this
           // console.log(e.target)
+        });
+
+        // Add click event listener deletes div from parent div 
+        // delete from db
+
+
+        // get the button id from the card
+        const deleteButton = document.getElementById(`delete-task${task.id}`);
+        deleteButton.addEventListener("click", (e)=>{
+          var elem = document. getElementById(task.id); 
+          elem. parentNode. removeChild(elem);
+
+          queries.deleteTask(task.id)
+
         })
+        // console.log(card.childNodes)
+        // find child of div element
 
 
     }
 }
 
 
-function drop(e){
-  console.log(e.target)
-}
+
 
 
 /* 

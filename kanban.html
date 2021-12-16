@@ -5,15 +5,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="board.css">
+    <script type="module" src="./routing.js"></script>
     <script type="module" src="./kanbanScript.js"></script>
     <title>Document</title>
     
 </head>
 
 <body>
-
+   
     <div class="container">
+        <div w3-include-html="./templates/navbar.html"></div>
         <div class="open"  id="active"></div>
         <div class="onwork"  id="onwork"></div>
         <div class="close"  id="finished"></div>
